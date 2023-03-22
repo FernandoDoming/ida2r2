@@ -44,12 +44,10 @@ def Functions():
     return [f["offset"] for f in functions]
 
 def Heads(start, end):
-    # res = log_exec_r2_cmd(f"pid {size} @ {ea}~[0]").strip()
-    # addrs = filter(None, [int16(x) for x in res.split("\n")])
-    # # Remove duplicates
-    # return list(dict.fromkeys(addrs))
-    ops = log_exec_r2_cmdj(f"aoj {end - start} @ {start}")
-    return [op["addr"] for op in ops]
+    res = log_exec_r2_cmd(f"pid {end - start} @ {start}~[0]").strip()
+    addrs = filter(None, [int(x, 16) for x in res.split("\n")])
+    # Remove duplicates
+    return list(dict.fromkeys(addrs))
 
 def Names():
     names = log_exec_r2_cmdj("fj")
